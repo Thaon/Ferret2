@@ -44,6 +44,8 @@ void RenderSystem::Render(std::shared_ptr<Scene> scene)
 		if (e->GetRenderer() != nullptr)
 		{
 			//we render the shit out of this entity!
+			glMatrixMode(GL_MODELVIEW);
+			glLoadIdentity();
 			e->GetRenderer()->Draw();
 		}
 	}

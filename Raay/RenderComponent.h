@@ -11,10 +11,11 @@
 #include <SDL.h>
 #include <SDL_opengl.h>
 
+enum Type { cube };
+
 class RenderComponent
 {
 private:
-	enum Type { cube };
 	Type m_type = Type::cube;
 
 public:
@@ -22,5 +23,8 @@ public:
 	~RenderComponent();
 
 	void Draw();
+
+	//getters and setters
+	void SetType(Type t) { m_type = t; }
 };
 

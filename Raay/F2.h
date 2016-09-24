@@ -17,6 +17,9 @@ private:
 	bool m_isRunning;
 
 	std::unique_ptr<RenderSystem> m_renderSys;
+
+
+	std::vector<std::shared_ptr<Scene>> m_sceneManager;
 	std::shared_ptr<Scene> m_currentScene;
 
 
@@ -30,5 +33,7 @@ public:
 	void Run(float deltaTime);
 
 	//getters and setters
+	std::shared_ptr<Scene> GetCurrentScene() { return m_currentScene; }
+	std::vector<std::shared_ptr<Scene>> GetAllScenes() { return m_sceneManager; }
 };
 

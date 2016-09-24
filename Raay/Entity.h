@@ -13,7 +13,11 @@ public:
 	Entity();
 	~Entity();
 
+	void Start() {};
+	void Update() {};
+
 	//getters and setters
 	std::shared_ptr<RenderComponent> GetRenderer() { return m_renderComponent; }
+	void AddRenderer(std::shared_ptr<RenderComponent> renderer) { m_renderComponent = renderer; }
 };
 

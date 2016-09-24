@@ -52,11 +52,20 @@ bool F2::Init(int w, int h)
 				glewInit();
 
 				//get the first scene
-				m_currentScene = std::make_shared<Scene>(); //shared since the scene is passed to the RenderSystem!!!
+				m_sceneManager = std::vector<std::shared_ptr<Scene>>();
+				m_sceneManager.push_back(std::make_shared<Scene>());
+				m_currentScene = m_sceneManager[0]; //shared since the scene is passed to the RenderSystem!!!
+
+				//initialise all entities
+				for (std::shared_ptr<Entity> e : m_currentScene->GetEntities())
+				{
+					e->Start();
+				}
 
 				//create all the systems
 				m_renderSys = std::make_unique<RenderSystem>();
 				m_renderSys->Init();
+
 			}
 		}
 	}
@@ -64,14 +73,14 @@ bool F2::Init(int w, int h)
 
 void F2::Run(float deltaTime)
 {
-	while (!m_isRunning)
+	while (m_isRunning)
 	{
 		while (SDL_PollEvent(&m_sdlEvent) != 0)
 		{
 			// Esc button is pressed
 			if (m_sdlEvent.type == SDL_QUIT)
 			{
-				m_isRunning = true;
+				m_isRunning = false;
 			}
 
 			//get input here and send to the input manager
