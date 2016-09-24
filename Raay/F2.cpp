@@ -28,7 +28,7 @@ bool F2::Init(int w, int h)
 	else
 	{
 		// Create window
-		m_window = SDL_CreateWindow("Raay", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, w, h, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
+		m_window = SDL_CreateWindow("F2", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, w, h, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
 		if (m_window == NULL)
 		{
 			// Display error message
@@ -50,12 +50,19 @@ bool F2::Init(int w, int h)
 			{
 				// Initialize glew
 				glewInit();
+
+				//get the first scene
+				m_currentScene = std::make_shared<Scene>(); //shared since the scene is passed to the RenderSystem!!!
+
+				//create all the systems
+				m_renderSys = std::make_unique<RenderSystem>();
+				m_renderSys->Init();
 			}
 		}
 	}
 }
 
-void F2::Run()
+void F2::Run(float deltaTime)
 {
 	while (!m_isRunning)
 	{
@@ -75,7 +82,7 @@ void F2::Run()
 		// Clear color buffer
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		// Render each one of the entities
-
+		m_renderSys->Render(m_currentScene);
 		// Update window with OpenGL rendering
 		SDL_GL_SwapWindow(m_window);
 	}
