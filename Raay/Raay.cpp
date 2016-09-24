@@ -1,11 +1,20 @@
 // Raay.cpp : Defines the entry point for the console application.
 //
-
 #include "stdafx.h"
 
+#include "F2.h"
 
-int main()
+//undefinde main, to make the program compile, weird shit...
+#undef main
+
+bool quit;
+
+
+int main(int argc, char *argv[])
 {
-    return 0;
+	quit = false;
+
+
+	return 0;
 }
 
